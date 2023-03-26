@@ -19,7 +19,8 @@ if (*format == 'c')
 c = va_arg(args, int);
 _putchar(c);
 num_chars_printed++;
-} else if (*format == 's')
+}
+else if (*format == 's')
 {
 *s = va_arg(args, char *);
 fputs(s, stdout);
@@ -41,5 +42,5 @@ format++;
 
 va_end(args);
 
-return num_chars_printed;
+return (num_chars_printed);
 }
