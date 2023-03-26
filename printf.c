@@ -1,49 +1,37 @@
 #include <stdarg.h>
-#include <stdio.h>
+#include <string.h>
 #include "main.h"
 
 int _printf(const char *format, ...)
 {
-    int count = 0;
     va_list args;
     va_start(args, format);
+    char c, *s;
 
+    int num_chars_printed = 0;
     while (*format != '\0') {
         if (*format == '%') {
             format++;
-            switch (*format) {
-                case 'c': {
-                    char c = (char)va_arg(args, int);
-                    putchar(c);
-                    count++;
-                    break;
-                }
-                case 's': {
-                    char *s = va_arg(args, char *);
-                    while (*s != '\0') {
-                        putchar(*s);
-                        s++;
-                        count++;
-                    }
-                    break;
-                }
-                case '%': {
-                    putchar('%');
-                    count++;
-                    break;
-                }
-                default: {
-                    // Invalid conversion specifier
-                    return -1;
-                }
+            if (*format == 'c') {
+                c = va_arg(args, int);
+                _putchar(c);
+                num_chars_printed++;
+            } else if (*format == 's') {
+                s = va_arg(args, char *);
+                fputs(s, stdout);
+                num_chars_printed += strlen(s);
+            } else if (*format == '%') {
+                _putchar('%');
+                num_chars_printed++;
             }
         } else {
-            putchar(*format);
-            count++;
+            _putchar(*format);
+            num_chars_printed++;
         }
         format++;
     }
-
+    
     va_end(args);
-    return count;
+    
+    return num_chars_printed;
 }
