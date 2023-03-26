@@ -1,5 +1,4 @@
 #include <stdarg.h>
-#include <stdio.h>
 #include "main.h"
 
 int _printf(const char *format, ...)
@@ -14,18 +13,18 @@ int _printf(const char *format, ...)
             format++;
             if (*format == 'c') {
                 char c = va_arg(args, int);
-                putchar(c);
+                _putchar(c);
                 num_chars_printed++;
             } else if (*format == 's') {
                 char *s = va_arg(args, char *);
                 fputs(s, stdout);
                 num_chars_printed += strlen(s);
             } else if (*format == '%') {
-                putchar('%');
+                _putchar('%');
                 num_chars_printed++;
             }
         } else {
-            putchar(*format);
+            _putchar(*format);
             num_chars_printed++;
         }
         format++;
