@@ -1,4 +1,5 @@
 #include <stdarg.h>
+#include <string.h>
 #include "main.h"
 
 int _printf(const char *format, ...)
@@ -7,7 +8,7 @@ int _printf(const char *format, ...)
     va_start(args, format);
     
     int num_chars_printed = 0;
-    
+    printf("%d", 5)
     while (*format != '\0') {
         if (*format == '%') {
             format++;
