@@ -1,90 +1,73 @@
-# 0x11. C - printf 
+# Printf
 
-- Writing our own `printf` function, this is a project done under [ALX Low Level Programming](https://github.com/iAmG-r00t/alx-low_level_programming).
-
-## Resource
-
-- [secrets of printf](https://www.cypress.com/file/54761/download)
-- [Implementing printf and scanf in C](https://iq.opengenus.org/how-printf-and-scanf-function-works-in-c-internally/)
-- [All About Printf](https://akshatshibu.wordpress.com/2015/07/22/all-about-printf/)
+This project is an implementation of the [`printf`](https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm) function in the __C__ standard libray.
 
 
-## Description
+## How To Use
 
-- The function `_printf` writes output to stdout. The function writes under the control of a `format` string that specifies how subsequent arguments (accessed via the variable-length argument facilities of standard library `stdarg`) are converted for output.
+The `holberton.h` header must be included before you can use the function. The `_printf` function returns the number of characters that were printed to stdout.
 
-- Prototype: `int _printf(const char *format, ...);`
+```c
+#include "holberton.h"
 
-## Return
+int main(void)
+{
+  int n = _printf("Wind: %d%s and Precipitation: %d%%\\n", 28, "km/h", 0x1a);
 
-- Upon success, `_printf` returns the number of characters printed (**excluding the terminating null byte used to end output to strings**). If an output error is encountered, the function returns `-1`.
+  return (0);
+}
+```
 
-## Format of the Argument String
+### The Format Specifier Pattern
 
-- The `format` string argument is a constant character string composed of zero or more directives: ordinary characters (apart from `%`) which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments.
-- Conversion specification is introduced by the character `%` and ends with a conversion specifier (which in whole make up the format specifier.)
+The format specifier uses the following pattern:
 
-## General Requirements
+```
+%[flag][width][.precision][length]specifier
+```
 
-- All your files will be compiled on Ubuntu 20.04 LTS using `gcc`, using the options `-Wall -Werror -Wextra -pedantic -std=gnu89`
-- All your files should end with a new line.
-- No more than 5 functions per file.
-- You are not allowed to use global variables.
-- The prototypes of all your functions should be included in your header file called `holberton.h`
-- All your header files should be include guarded.
+The fields in brackets are optional, a spec must be provided, and the fields must appear in the same order as the pattern provided above. If a spec isn't provided (or the format specifier is invalid) and the format specifier is at the end of the format string an error occurs. On the contrary, if the spec isn't provided (or the format specifier is invalid) and the format specifier is not at the end of the string, the raw invalid format specifier is printed as is.
 
-### Authorized functions and macros
+### Supported Flags
 
-- `write` (`man 2 write`)
-- `malloc` (`man 3 malloc`)
-- `free` (`man 3 free`)
-- `va_start` (`man 3 va_start`)
-- `va_end` (`man 3 va_end`)
-- `va_copy` (`man 3 va_copy`)
-- `va_arg` (`man 3 va_arg`)
+| Flag | Description |
+|:---:|:---|
+| # | The value should be converted to an alternate form. |
+| 0 | The value should be padded with zeros rather than spaces. |
+| - | The output should be left-aligned on the field boundary since the default is right-alignment on the field boundary. |
+| ' ' | (a space) A blank space should be left before a positive number that is produced by a sign conversion. |
+| + | A sign (+ or -) should always be placed before a number produced by a signed conversion. By default only the signs of negative numbers are shown. |
 
-### Github
+### Width And Precision
 
-- There should be one project repository per group. If you clone/fork/whatever a project repository with the same name before the second deadline, you risk a 0% score.
+The width and precision fields can be provided as integers beginning with a non-zero digit. They can also be specified with the `*` sign. If they're specified with the `*` sign, the value is read from the argument list provided to `_printf`. The maximum value of the width and precision fields is `2147483647`.
 
-### Compilation
+### Supported Length Modifiers
 
-- The code can be compiled like this:
-	```sh
-	gcc -Wall -Werror -Wextra -pedantic -std=gnu89 test/main.c *.c -o print
-	```
-- All test files will be in the [test](./test) directory.
+| Length | Description |
+|:---:|:---|
+| h | Modifies the integer to be a short signed or unsigned integer |
+| l | Modifies the integer to be a long signed or unsigned integer|
 
+### Supported Conversion Specifiers
 
-### Authors
+| Specifier | Description |
+|:---:|:---|
+| c | Prints the ASCII character representation of an integer. |
+| s | Prints the characters of a `char *` that is terminated by a null character (`\0`). |
+| d, i | Prints the signed decimal notation of an integer argument. |
+| f | Prints the signed decimal notation of an IEEE 754 floating-point argument. |
+| o, u, x, X | Prints the unsigned int argumen in unsigned octal notation (o), decimal notation (u) or hexadecimal notation (x and X). x uses lower-case hexadecimal characters and X uses the upper-case hexadecimal characters. |
+| % | Prints the "%" sign only. |
+| p | Prints a `void *` argument in hexadecimal form. |
+| b | Prints the binary representation of an unsigned integer. |
+| R | Prints the rot13 translation of a string. |
+| r | Prints the reverse of a string. |
+| S | Prints a string and the hexadecimal representation of unprintable characters (prefixed with `\x`) in a string that is null terminated. |
 
-- iAmG-r00t 👾
-- Michael Ndula [@Michaelndula](https://github.com/Michaelndula) 👨‍💻
+### Examples
 
-
-## Tasks
-
-0. **I'm not going anywhere. You can print that wherever you want to. I'm here and I'm a Spur for life** : A function that produces output according to a format.
-	- Prototype: int `_printf(const char *format, ...);`
-	- Returns: the number of characters printed (excluding the null byte used to end output to strings)
-	- write output to stdout, the standard output stream
-	- `format` is a character string. The format string is composed of zero or more directives. See `man 3 printf` for more detail. You need to handle the following conversion specifiers:
-		- `c`
-		- `s`
-		- `%`
-	- You don’t have to reproduce the buffer handling of the C library `printf` function.
-	- You don’t have to handle the flag characters.
-	- You don’t have to handle field width.
-	- You don’t have to handle precision.
-	- You don’t have to handle the length modifiers.
-
-1. **Education is when you read the fine print. Experience is what you get if you don't** : Handle the following conversion specifiers:
-	- `d`
-	- `i`
-	- You don’t have to handle the flag characters.
-	- You don’t have to handle field width.
-	- You don’t have to handle precision.
-	- You don’t have to handle the length modifiers.
-
-2. **Just because it's in print doesn't mean it's the gospel** : Create a man page for your function.
-	- How to read the man page: `man ./man_3_printf`
+1. `_printf("%.2f\n", -3.46);` produces `-3.46`.
+2. `_printf("%#x\n", 478);` produces `0x1de`.
+3. `_printf("%R\n", "foobar");` produces `sbbone`.
+4. `_printf("%r\n", "foo")` produces `oof`.
